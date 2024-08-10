@@ -12,11 +12,7 @@ function Product({title,category,price,thumbnail,id}){
         <p className="text-gray-500">{title}</p>
         <h1>{category}</h1>
         <div className="w-4 flex">
-         <img src="./src/star.svg" alt="star"/>
-          <img src="./src/star.svg" alt="star"/>
-          <img src="./src/star.svg" alt="star"/>
-          <img src="./src/star.svg" alt="star"/>
-          <img src="./src/star.svg" alt="star"/>
+        ⭐⭐⭐⭐⭐
         </div>
         <h2>Rs{price}</h2>
        <Link to= {"/ProductDetails/"+ id} >View Details</Link>
