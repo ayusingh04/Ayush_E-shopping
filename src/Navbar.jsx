@@ -20,7 +20,7 @@ function Navbar({ totalCount }) {
       <div className="max-w-5xl flex justify-between mx-auto px-9">
         <img
           className="h-16"
-          src="https://logos-world.net/wp-content/uploads/2020/04/Amazon-Symbol.jpg"
+          src="https://static.vecteezy.com/system/resources/previews/019/766/240/non_2x/amazon-logo-amazon-icon-transparent-free-png.png"
           alt="Amazon Logo"
         />
         <div className='flex justify-center items-center gap-1'> 
