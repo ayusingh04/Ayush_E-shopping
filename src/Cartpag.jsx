@@ -69,7 +69,7 @@ function CartPag({ cart, updateCart }) {
                             type="text"
                             placeholder='Enter Coupon Code'
                         />
-                        <button className="mt-4 bg-red-600 text-white py-2 px-4 rounded hover:bg-primary-dark ml-2">
+                        <button className="mt-4 bg-red-300 text-white py-2 px-4 rounded hover:bg-primary-dark ml-2">
                             Apply Coupon Code
                         </button>
                     </div>
@@ -85,7 +85,7 @@ function CartPag({ cart, updateCart }) {
                 <h1 className="text-xl font-bold  ">Cart Total</h1>
                 <div className="text-lg flex justify-between"><p>Subtotal</p> <p>${total.toFixed(2)}</p></div>
                 <div className="text-lg flex justify-between"><p>Total</p> <p>${total.toFixed(2)}</p></div>
-                <button className="mt-4 bg-primary-default text-white py-2 px-4 rounded hover:bg-red-600">
+                <button className="mt-4 bg-red-300s text-white py-2 px-4 rounded hover:bg-red-300">
                     Proceed to Checkout
                 </button>
             </div>
