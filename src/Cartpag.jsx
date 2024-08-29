@@ -69,13 +69,13 @@ function CartPag({ cart, updateCart }) {
                             type="text"
                             placeholder='Enter Coupon Code'
                         />
-                        <button className="mt-4 bg-primary-default text-white py-2 px-4 rounded hover:bg-primary-dark ml-2">
+                        <button className="mt-4 bg-red-600 text-white py-2 px-4 rounded hover:bg-primary-dark ml-2">
                             Apply Coupon Code
                         </button>
                     </div>
                     <button
                         onClick={handleUpdateCart}
-                        className="mt-4 bg-primary-light text-black  py-1 px-2 sm:py-2 sm:px-4 rounded"
+                        className="mt-4 bg-red-600 text-black  py-1 px-2 sm:py-2 sm:px-4 rounded"
                     >
                         Update Cart
                     </button>
@@ -85,7 +85,7 @@ function CartPag({ cart, updateCart }) {
                 <h1 className="text-xl font-bold  ">Cart Total</h1>
                 <div className="text-lg flex justify-between"><p>Subtotal</p> <p>${total.toFixed(2)}</p></div>
                 <div className="text-lg flex justify-between"><p>Total</p> <p>${total.toFixed(2)}</p></div>
-                <button className="mt-4 bg-primary-default text-white py-2 px-4 rounded hover:bg-primary-dark">
+                <button className="mt-4 bg-primary-default text-white py-2 px-4 rounded hover:bg-red-600">
                     Proceed to Checkout
                 </button>
             </div>
