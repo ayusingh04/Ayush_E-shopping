@@ -2,12 +2,27 @@ import React from 'react';
 import { withFormik } from 'formik';
 import { MdOutlineShoppingCartCheckout } from 'react-icons/md';
 import { IoIosArrowRoundBack } from 'react-icons/io';
-import { Link } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
 import * as Yup from 'yup';
 import Input from './input';
+import axios from 'axios';
+import withUser from './withUser';
+import withAlert from './withAlert';
 
-function callLoginApi(values) {
-  console.log('Username and password are', values.email, values.password);
+function callLoginApi(values, bag) {
+  axios.post("https://myeasykart.codeyogi.io/login", {
+    email: values.email,
+    password: values.password,
+  }).then((response) => {
+    const { user, token } = response.data;
+    localStorage.setItem("token", token);
+    bag.props.setUser(user);
+    bag.props.setAlert({ type: "success", message: "Login Successfull" });
+  }).catch(() => {
+     bag.props.setAlert({type:"error",
+      message:"Invalid email or password"
+     });
+  });
 }
 
 const schema = Yup.object().shape({
@@ -21,10 +36,11 @@ const initialValues = {
 };
 
 function LoginPage({ handleSubmit, values, handleBlur, handleChange }) {
+
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-green-300">
-      <div className="text-white mb-8 text-9xl flex gap-2">
-        <Link className="text-8xl hover:bg-white hover:rounded-full hover:text-green-300 p-2" to="/">
+      <div className="text-gray mb-8 text-9xl flex gap-2">
+        <Link className="text-8xl hover:bg-white hover:rounded-3xl hover:text-gray-300 p-2" to="/">
           <IoIosArrowRoundBack />
         </Link>
         <MdOutlineShoppingCartCheckout />
@@ -51,7 +67,7 @@ function LoginPage({ handleSubmit, values, handleBlur, handleChange }) {
           onChange={handleChange}
           onBlur={handleBlur}
         />
-        <button type="submit" className="w-full p-3 bg-white text-blue-300 rounded-lg hover:bg-gray-200 mt-4">
+        <button type="submit" className="w-full p-3 bg-white text-blue-900 rounded-lg hover:bg-gray-200 mt-4">
           LOGIN
         </button>
         <div className="mt-4">
@@ -67,8 +83,8 @@ function LoginPage({ handleSubmit, values, handleBlur, handleChange }) {
 
 const EnhancedLoginPage = withFormik({
   validationSchema: schema,
-  initialValues: initialValues,
-  onSubmit: callLoginApi,
+  mapPropsToValues: () => initialValues,
+  handleSubmit: callLoginApi,
 })(LoginPage);
 
-export default EnhancedLoginPage;
+export default withAlert(withUser(EnhancedLoginPage));

@@ -20,7 +20,7 @@ function ForgotPassword() {
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-green-300">
-      <div className="text-white mb-8 text-9xl">
+      <div className="text-gray mb-8 text-9xl">
         <MdOutlineShoppingCartCheckout />
       </div>
       <Formik

@@ -25,7 +25,7 @@ function Input({
           value={value}
           name={name}
           placeholder={placeholder}
-          className={"w-full p-3 border  rounded-lg text-white placeholder-white bg-blue-300" +" " + borderClass}
+          className={"w-full p-3 border  rounded-lg text-gray-600 placeholder-gray-600 bg-green-100" +" " + borderClass}
 
         />
         { touched && error && <div className='text-red-500'>{error}</div> }

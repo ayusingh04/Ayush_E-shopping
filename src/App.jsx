@@ -1,60 +1,51 @@
-import React, { useState, useMemo, useCallback } from 'react';
+import React, { useState, useMemo, useCallback, useEffect, createContext } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import ProductList from './Productlist';
-import Box from './Box';
+import axios from 'axios';
 import ProductDetails from './Details';
-import ProductHomePage from "./ProductHomePage";
+import ProductHomePage from './ProductHomePage';
 import Navbar from './Navbar';
-import Footer from './Footers';
 import NotFound from './Notfound';
-import { getProductsDetails } from './api';
 import CartPag from './Cartpag';
 import EnhancedLoginPage from './LoginPage';
 import SignUp from './SignUp';
 import ForgotPassword from './ForgotPassword';
+import Footer from './Footers';
+import AuthRoute from './AuthRoute';
+import UserRoute from './UserRoute';
+import Alert from './Alert';
+import UserProvider from "./providers/UserProvider"
+import Alertprovider from './providers/Alertprovider';
+import CartProvider from './providers/CartProvider';
+
+
+export const alertContext = createContext();
 
 function App() {
-  const savedDataString = localStorage.getItem('myCartItem') || "{}";
-  const savedData = JSON.parse(savedDataString);
-
-  const [cart, setCart] = useState(savedData);
-
-  const handleAddToCart = useCallback((productId, count) => {
-    const oldCount = cart[productId] || 0;
-    const newCart = { ...cart, [productId]: oldCount + count };
-    updateCart(newCart);
-  }, [cart]);
-
-  const updateCart = (newCart) => {
-    setCart(newCart);
-    const cartString = JSON.stringify(newCart);
-    localStorage.setItem('myCartItem', cartString);
-  };
-
-  const totalCount = useMemo(() => {
-    return Object.keys(cart).reduce((previous, current) => {
-      return previous + cart[current];
-    }, 0);
-  }, [cart]);
-
   return (
-    <div className="h-screen bg-gray-100 overflow-scroll flex flex-col">
-
-        <Navbar productCount={totalCount} />
+    <UserProvider>
+      <Alertprovider> 
+      <CartProvider> 
+      <div className="h-screen bg-gray-100 overflow-scroll flex flex-col">
+      <Alert/> 
+        <Navbar/>
         <div className="grow">
           <Routes>
-            <Route path="/" element={<ProductHomePage />} />
-            <Route path="/productdetails/:id" element={<ProductDetails onAddToCart={handleAddToCart} />} />
+            <Route path="/" element={ <ProductHomePage /> } />
+            <Route path="/productdetails/:id" element={<ProductDetails />} />
             <Route path="*" element={<NotFound />} />
-            <Route path="/cartpag" element={<CartPag cartitem={cart} updateCart={updateCart} />} />
-            <Route path="/LoginPage" element={<EnhancedLoginPage />} />
+            <Route path="/cartpag" element={<CartPag />} />
+            <Route path="/LoginPage" element={<AuthRoute ><EnhancedLoginPage /></AuthRoute>} />
             <Route path="/SignUp" element={<SignUp />} />
             <Route path="/ForgotPassword" element={<ForgotPassword />} />
+
           </Routes>
         </div>
         <Footer />
+      </div>
+    </CartProvider>
+    </Alertprovider>
+    </UserProvider>
 
-    </div>
   );
 }
 
